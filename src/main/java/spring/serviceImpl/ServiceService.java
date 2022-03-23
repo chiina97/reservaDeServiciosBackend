@@ -30,6 +30,11 @@ public class ServiceService implements IServiceService {
 	public Page<Services> findAll(Pageable pageable) {
 		return serviceRepo.findAll(pageable);
 	}
+	
+	@Transactional(readOnly=true)
+	public Iterable<Services> findAllServicesByType(Long id ) {
+		return serviceRepo.findAllServicesByTypeService(id);
+	}
 
 	@Override
 	@Transactional(readOnly = true)

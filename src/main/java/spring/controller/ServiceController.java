@@ -96,7 +96,7 @@ public class ServiceController {
 	}
 	
 	
-	@GetMapping("/{id}")
+	@GetMapping("/detalle/{id}")
 	public ResponseEntity<?> getServicioById(@PathVariable(value = "id") Long serviceId) {
 		Optional<Services> service = serviceService.findById(serviceId);
 
@@ -141,7 +141,15 @@ public class ServiceController {
 		return ResponseEntity.ok(serviceService.findAll());
 		}
 		
+	
+
+	@GetMapping("/list/{id}")
+	public ResponseEntity<?> getAllServicesByType(@PathVariable(value = "id") Long typeId) {
+	
+		return ResponseEntity.ok(serviceService.findAllServicesByType(typeId));
 	}
+	
+}
 	
 
 

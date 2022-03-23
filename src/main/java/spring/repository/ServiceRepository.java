@@ -18,5 +18,8 @@ public interface ServiceRepository extends JpaRepository<Services, Long> {
 	@Query(value="SELECT s FROM Services s WHERE s.enable=true")
 	List<Services> findAllServices();
 	
+	@Query(value="SELECT s FROM Services s WHERE s.enable=true and s.typeService.id=?1")
+	List<Services> findAllServicesByTypeService(Long type);
+	
 
 }
