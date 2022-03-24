@@ -64,7 +64,6 @@ public class UserController {
 
 	// Create a new user
 	@PostMapping
-
 	public ResponseEntity<?> create(@Valid@RequestBody UserDTO usuarioDTO,BindingResult result) {
 
 		//validaciones:
@@ -79,7 +78,7 @@ public class UserController {
 				User user = new User(userRequest.getUsername(),passwordEncoder.encode(userRequest.getPassword()), userRequest.getMail(),
 						userRequest.getName(), userRequest.getSurname());
 
-				System.out.println("usuario"+user.getPassword());
+				
 				// agrego rol y guardo el user
 				Set<Role> roles = new HashSet<>();
 				roles.add(roleService.getByRoleName(RoleName.ROLE_USER).get());
@@ -91,7 +90,7 @@ public class UserController {
 	}
 
 	@PostMapping("/authenticate")
-	public ResponseEntity<?> autenticar(@Valid@RequestBody LoginDTO loginDto,BindingResult result) {
+	public ResponseEntity<?> authenticate(@Valid@RequestBody LoginDTO loginDto,BindingResult result) {
 		
 		//validaciones:
 				if (result.hasErrors()) {

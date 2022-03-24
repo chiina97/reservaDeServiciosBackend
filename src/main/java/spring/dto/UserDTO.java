@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Set;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -34,9 +36,11 @@ public class UserDTO implements Serializable {
 	private String password;
 	@NotNull(message = "Debe ingresar un nombre")
 	@NotBlank(message = "El nombre no puede tener espacios en blanco")
+	@Pattern(regexp="[a-zA-Z]+", message = "el nombre solo puede contener letras")
 	private String name;
 	@NotNull(message = "Debe ingresar un apellido")
 	@NotBlank(message = "El apellido no puede tener espacios en blanco")
+	@Pattern(regexp="[a-zA-Z]+", message = "el apellido solo puede contener letras")
 	private String surname;
 	private boolean enable;
 	
