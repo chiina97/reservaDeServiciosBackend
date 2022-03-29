@@ -64,15 +64,24 @@ public class UserController {
 
 	// Create a new user
 	@PostMapping
-	public ResponseEntity<?> create(@Valid@RequestBody UserDTO usuarioDTO,BindingResult result) {
+	public ResponseEntity<?> create(@Valid@RequestBody UserDTO userDTO,BindingResult result) {
 
 		//validaciones:
 		if (result.hasErrors()) {
 			return new ResponseEntity<Message>(new Message(result.getFieldError().getDefaultMessage()),
 					HttpStatus.BAD_REQUEST);
 		}
+		if (userService.existsByUsername(userDTO.getUsername())) {
+			return new ResponseEntity<Message>(
+					new Message("El nombre de usuario ya existe"),HttpStatus.BAD_REQUEST);
+		}
+		if (userService.existsByMail(userDTO.getMail())) {
+			return new ResponseEntity<Message>(
+					new Message("Ya existe una cuenta asociada a ese mail"),HttpStatus.BAD_REQUEST);
+		}
+		
 		// convert DTO to entity
-		User userRequest = modelMapper.map(usuarioDTO, User.class);
+		User userRequest = modelMapper.map(userDTO, User.class);
 		
 		// creo un user con la pass hasheada
 				User user = new User(userRequest.getUsername(),passwordEncoder.encode(userRequest.getPassword()), userRequest.getMail(),

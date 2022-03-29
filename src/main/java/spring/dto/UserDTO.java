@@ -26,6 +26,7 @@ public class UserDTO implements Serializable {
 	private Long id;
 	@NotNull(message = "Debe ingresar un usuario")
 	@NotBlank(message = "El usuario no puede tener espacios en blanco")
+	@Pattern(regexp="[a-zA-Z0-9_-]+", message = "el nombre de usuario solo puede tener letras y numeros sin espacios")
 	private String username;
 	@NotNull(message = "Debe ingresar un correo")
 	@NotBlank(message = "El correo no puede tener espacios en blanco")
@@ -36,11 +37,11 @@ public class UserDTO implements Serializable {
 	private String password;
 	@NotNull(message = "Debe ingresar un nombre")
 	@NotBlank(message = "El nombre no puede tener espacios en blanco")
-	@Pattern(regexp="[a-zA-Z]+", message = "el nombre solo puede contener letras")
+	@Pattern(regexp="^[A-Za-z\\s]+$", message = "el nombre solo puede contener letras")
 	private String name;
 	@NotNull(message = "Debe ingresar un apellido")
 	@NotBlank(message = "El apellido no puede tener espacios en blanco")
-	@Pattern(regexp="[a-zA-Z]+", message = "el apellido solo puede contener letras")
+	@Pattern(regexp="^[A-Za-z\\s]+$", message = "el apellido solo puede contener letras")
 	private String surname;
 	private boolean enable;
 	

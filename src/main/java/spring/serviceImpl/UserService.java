@@ -17,47 +17,46 @@ import spring.repository.UserRepository;
 public class UserService implements IUserService {
 
 	@Autowired
-	private UserRepository usuarioRepo; // inyectamos
+	private UserRepository userRepo; // inyectamos
 
 	@Override
 	@Transactional(readOnly = true)
 	public Iterable<User> findAll() {
-		return usuarioRepo.findAll();
+		return userRepo.findAll();
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Page<User> findAll(Pageable pageable) {
-		return usuarioRepo.findAll(pageable);
+		return userRepo.findAll(pageable);
 	}
 
 	@Override
 	@Transactional(readOnly = true)
 	public Optional<User> findById(Long id) {
-		return usuarioRepo.findById(id);
+		return userRepo.findById(id);
 	}
 	
 	@Transactional(readOnly = true)
 	public Optional<User> findByUsername(String username) {
-		return usuarioRepo.findByUsername(username);
+		return userRepo.findByUsername(username);
 	}
 
 	@Override
 	@Transactional
 	public User save(User user) {
-		return usuarioRepo.save(user);
+		return userRepo.save(user);
 	}
 
 	@Override
 	@Transactional
 	public User update(User userRequest, Long id) {
-		Optional<User> user = usuarioRepo.findById(id);
+		Optional<User> user = userRepo.findById(id);
 		if (user.isPresent()) {
 			user.get().setName(userRequest.getName());
 			user.get().setSurname(userRequest.getSurname());
-			user.get().setUsername(userRequest.getUsername());
 			user.get().setMail(userRequest.getMail());
-			return usuarioRepo.save(user.get());
+			return userRepo.save(user.get());
 		} else
 			return null;
 	}
@@ -65,14 +64,23 @@ public class UserService implements IUserService {
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
-		usuarioRepo.deleteById(id);
+		userRepo.deleteById(id);
 	}
 	
 	@Transactional(readOnly = true)
 	public List<User> findByUserAndPassword(String usuario, String clave) {
-		return usuarioRepo.findByUserAndPassword(usuario, clave);
+		return userRepo.findByUserAndPassword(usuario, clave);
 	}
 	
+	@Transactional(readOnly = true)
+	public boolean existsByMail(String mail) {
+		return userRepo.existsByMail(mail);
+	}
+	
+	@Transactional(readOnly = true)
+	public boolean existsByUsername(String username) {
+		return userRepo.existsByUsername(username);
+	}
 
 
 }
